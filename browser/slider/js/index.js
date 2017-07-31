@@ -2,6 +2,6 @@ const srcs = ['airmax.png', 'airmax-jump.png', 'airmax-on-foot.png', 'airmax-pla
 let index = 0;
 
 setInterval(() => {
-	document.getElementById('slider').src = `i/${srcs[index]}`;
-	if (index === 4) {index = 0} else index++;
+  document.getElementById('slider').src = `i/${srcs[index]}`;
+  if (index === 4) {index = 0} else index++;
 }, 5000);
