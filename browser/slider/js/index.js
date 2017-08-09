@@ -3,5 +3,5 @@ let index = 0;
 
 setInterval(() => {
   document.getElementById('slider').src = `i/${srcs[index]}`;
-  if (index === 4) {index = 0} else index++;
+  if (index === srcs.length - 1) {index = 0} else index++;
 }, 5000);
