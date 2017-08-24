@@ -26,7 +26,7 @@ for (const field of fields) {
   });
 }
 
-form.querySelector('button').disabled = (formFilled()) ? false : true;
+form.querySelector('button').disabled = (!formFilled());
 form.addEventListener('submit', event => {
   event.preventDefault();
 });
