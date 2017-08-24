@@ -18,7 +18,7 @@ function formFilled() {
 }
 
 form.zip.addEventListener('keyup', filterDigits);
-form.addEventListener('input', () => {form.querySelector('button').disabled = (formFilled()) ? false : true});
+form.addEventListener('input', () => {form.querySelector('button').disabled = (!formFilled())});
 for (const field of fields) {
   field.addEventListener('input', event => {
     const output = Array.from(outputs).find(item => {return item.id === event.target.name});
