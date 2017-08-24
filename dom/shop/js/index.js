@@ -6,7 +6,7 @@ let currentItems = 0,
 
 function addToCart(event) {
   currentItems += 1;
-  currentPrice = currentPrice + parseInt(event.target.dataset.price);
+  currentPrice += parseInt(event.target.dataset.price);
   totalItems.innerText = currentItems;
   totalPrice.innerText = getPriceFormatted(currentPrice);
 }
