@@ -5,10 +5,10 @@ function handleTableClick(event) {
         table = event.currentTarget;
 
   let ths = document.querySelectorAll('th');
-  ths = Array.from(ths).filter(item => {return item !== th});
+
 
   Array.from(ths).forEach(item => {
-    item.removeAttribute('data-dir');
+    (item !== th) ? item.removeAttribute('data-dir') : false;
   });
 
   th.dataset.dir = th.dataset.dir ? -th.dataset.dir : 1;
