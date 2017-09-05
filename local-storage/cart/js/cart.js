@@ -138,6 +138,7 @@ class CartItem extends Snippet {
         })
         .then(res => res.json())
         .then(data => {
+          if (data.error) throw new Error(data.message);
           quickCart.innerHTML = '';
           const totalPrice = data.reduce((total, item) => {return total + (item.price * item.quantity)}, 0);
           addCartIcon(totalPrice);
@@ -197,11 +198,14 @@ fetch('https://neto-api.herokuapp.com/cart/colors')
     throw new Error(res.statusText);
   })
   .then(res => res.json())
-  .then(data => data.forEach(item => {
-    const color = new Color(item);
-    if (item.type === formData.color) color.checked = true;
-    color.addTo(colorSwatch);
-  }))
+  .then(data => {
+    if (data.error) throw new Error(data.message);
+    data.forEach(item => {
+      const color = new Color(item);
+      if (item.type === formData.color) color.checked = true;
+      color.addTo(colorSwatch);
+    })
+  })
   .catch(err => console.log(err));
 
 fetch('https://neto-api.herokuapp.com/cart/sizes')
@@ -212,11 +216,14 @@ fetch('https://neto-api.herokuapp.com/cart/sizes')
     throw new Error(res.statusText);
   })
   .then(res => res.json())
-  .then(data => data.forEach(item => {
-    const size = new Size(item);
-    if (item.type === formData.size) size.checked = true;
-    size.addTo(sizeSwatch);
-  }))
+  .then(data => {
+    if (data.error) throw new Error(data.message);
+    data.forEach(item => {
+      const size = new Size(item);
+      if (item.type === formData.size) size.checked = true;
+      size.addTo(sizeSwatch);
+    })
+  })
   .catch(err => console.log(err));
 
 fetch('https://neto-api.herokuapp.com/cart')
@@ -228,6 +235,7 @@ fetch('https://neto-api.herokuapp.com/cart')
   })
   .then(res => res.json())
   .then(data => {
+    if (data.error) throw new Error(data.message);
     const totalPrice = data.reduce((total, item) => {return total + (item.price * item.quantity)}, 0);
     addCartIcon(totalPrice);
 
@@ -258,6 +266,7 @@ form.addEventListener('submit', event => {
     })
     .then(res => res.json())
     .then(data => {
+      if (data.error) throw new Error(data.message);
       quickCart.innerHTML = '';
       const totalPrice = data.reduce((total, item) => {return total + (item.price * item.quantity)}, 0);
       addCartIcon(totalPrice);
