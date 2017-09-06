@@ -236,13 +236,15 @@ fetch('https://neto-api.herokuapp.com/cart')
   .then(res => res.json())
   .then(data => {
     if (data.error) throw new Error(data.message);
-    const totalPrice = data.reduce((total, item) => {return total + (item.price * item.quantity)}, 0);
-    addCartIcon(totalPrice);
+    if (data.length > 0) {
+      const totalPrice = data.reduce((total, item) => {return total + (item.price * item.quantity)}, 0);
+      addCartIcon(totalPrice);
 
-    data.forEach(item => {
-      const cartItem = new CartItem(item);
-      cartItem.addTo(quickCart);
-    });
+      data.forEach(item => {
+        const cartItem = new CartItem(item);
+        cartItem.addTo(quickCart);
+      });
+    }
   })
   .catch(err => console.log(err));
 
