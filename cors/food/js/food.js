@@ -66,10 +66,6 @@ function listUsers(data) {
   widget.consumers.appendChild(total);
 }
 
-source.forEach((item) => {
-  loadData(item.funcName, item.url);
-});
-
 function loadData(cb, url) {
   return new Promise((done, fail) => {
     window.cb = done;
@@ -79,3 +75,7 @@ function loadData(cb, url) {
     document.body.appendChild(script);
   });
 }
+
+source.forEach((item) => {
+  loadData(item.funcName, item.url);
+});
