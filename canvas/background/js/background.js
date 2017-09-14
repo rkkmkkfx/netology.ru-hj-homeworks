@@ -12,15 +12,19 @@ const canvas = document.getElementById('wall'),
         min: -.2,
         max: .2
       },
-      totalAmount = Math.floor(Math.random() * (amount.max/2 - amount.min/2) + amount.min/2),
+      totalAmount = Math.floor(random(amount)),
       circles = new Array(totalAmount),
       crosses = new Array(totalAmount);
+
+function random(prop) {
+  return Math.random() * (prop.max - prop.min) + prop.min;
+}
 
 class Figure {
   constructor(size) {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.size = Math.random() * (size.max - size.min) + size.min;
+    this.size = random(size);
   }
 
   get nextPoint() {
@@ -58,7 +62,7 @@ class Cross extends Figure {
   constructor(size, speed) {
     super(size);
     this.side = this.size * 20;
-    this.speed = ((Math.random() * (speed.max - speed.min)) + speed.min);
+    this.speed = random(speed);
     this.angle = Math.random() * 360;
   }
 }
