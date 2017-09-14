@@ -25,18 +25,15 @@ class Figure {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
     this.size = random(size);
-  }
-
-  get nextPoint() {
     if (Math.round(Math.random())) {
-      return (x, y, time) => {
+      this.nextPoint = (x, y, time) => {
         return {
           x: x + Math.sin((50 + x + (time / 10)) / 100) * 3,
           y: y + Math.sin((45 + x + (time / 10)) / 100) * 4
         };
       }
     } else {
-      return (x, y, time) => {
+      this.nextPoint = (x, y, time) => {
         return {
           x: x + Math.sin((x + (time / 10)) / 100) * 5,
           y: y + Math.sin((10 + x + (time / 10)) / 100) * 2
@@ -97,18 +94,13 @@ function update() {
     ctx.translate(point.x, point.y);
     ctx.beginPath();
     ctx.rotate(cross.angle * Math.PI / 180);
-    ctx.strokeRect(0, -cross.size * cross.side/2, 0, cross.size * cross.side);
+    ctx.strokeRect(0, -cross.side/2, 0, cross.side);
 
     ctx.beginPath();
     ctx.rotate(Math.PI / 2);
-    ctx.strokeRect(0, -cross.size * cross.side/2, 0, cross.size * cross.side);
+    ctx.strokeRect(0, -cross.side/2, 0, cross.side);
     ctx.restore();
   })
 }
 
-function tick () {
-  update();
-  setTimeout(tick, 50);
-}
-
-tick();
+setInterval(update, 50);
