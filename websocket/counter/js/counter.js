@@ -5,8 +5,8 @@ const connection = new WebSocket('wss://neto-api.herokuapp.com/counter'),
 
 function getInfo(event) {
   const data = JSON.parse(event.data);
-  counter.innerText = data.connections;
-  errorBox.innerText = data.errors;
+  connections.innerText = data.connections;
+  errors.innerText = data.errors;
 }
 
 connection.addEventListener('message', getInfo);
