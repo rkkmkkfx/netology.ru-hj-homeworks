@@ -3,7 +3,7 @@ const eyeBall = document.querySelector('.big-book__eye');
 const eyePupil = document.querySelector('.big-book__pupil');
 
 window.addEventListener('mousemove', event => {
-  const bodyBCR = document.body.getBoundingClientRect();
+  const bodySize = document.body.getBoundingClientRect();
 
   const windowSize = {
     x: window.innerWidth,
@@ -17,8 +17,13 @@ window.addEventListener('mousemove', event => {
   };
 
   const eyeBallCenterPosition = {
-    x: (eyeBallBCR.left - bodyBCR.left) + (eyeBallSize.width / 2),
-    y: (eyeBallBCR.top - bodyBCR.top) + (eyeBallSize.height / 2)
+    x: (eyeBallBCR.left - bodySize.left) + (eyeBallSize.width / 2),
+    y: (eyeBallBCR.top - bodySize.top) + (eyeBallSize.height / 2)
+  };
+
+  const mousePos = {
+    x: event.pageX,
+    y: event.pageY
   };
 
   function pupilPosition(axis) {
@@ -26,16 +31,16 @@ window.addEventListener('mousemove', event => {
     if (difference === 0) return 0;
 
     const range = {
-      from: -eyeBallCenterPosition[axis],
-      to: windowSize[axis] - eyeBallCenterPosition[axis]
+      from: (axis === 'x') ? -eyeBallCenterPosition[axis] : (eyeBallBCR.top + (eyeBallSize.height / 2)),
+      to: (axis === 'x') ? windowSize[axis] - eyeBallCenterPosition[axis] : windowSize[axis] - (eyeBallBCR.bottom - (eyeBallSize.height / 2))
     }
-    return (difference < 0) ? (-(difference / range.from) * 100) : ((difference / range.to) * 100);
-  }
+    const relPos = {
+      neg: (axis === 'x') ? (-(difference / range.from) * 100) : ((difference / range.from) * 100),
+      pos: ((difference / range.to) * 100)
+    }
 
-  const mousePos = {
-    x: event.pageX,
-    y: event.pageY
-  };
+    return (difference < 0) ? relPos.neg : relPos.pos;
+  }
 
   const pupilPositionXPercent =  pupilPosition('x');
   const pupilPositionYPercent =  pupilPosition('y');
